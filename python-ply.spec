@@ -7,7 +7,6 @@ License: LGPL
 Group: Development/Python
 Source0: http://www.dabeaz.com/ply/ply-%{version}.tar.bz2
 URL: http://www.dabeaz.com/ply/
-BuildRoot: %{_tmppath}/%{name}-buildroot
 Requires: python
 BuildRequires: python-devel
 BuildArch: noarch
