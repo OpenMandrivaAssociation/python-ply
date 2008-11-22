@@ -1,8 +1,8 @@
 
 Summary: Python Lex-Yacc
 Name: python-ply
-Version: 2.3
-Release: %mkrel 4
+Version: 2.5
+Release: %mkrel 1
 License: LGPL
 Group: Development/Python
 Source0: http://www.dabeaz.com/ply/ply-%{version}.tar.bz2
