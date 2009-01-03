@@ -2,14 +2,13 @@
 Summary: Python Lex-Yacc
 Name: python-ply
 Version: 2.5
-Release: %mkrel 1
+Release: %mkrel 2
 License: LGPL
 Group: Development/Python
 Source0: http://www.dabeaz.com/ply/ply-%{version}.tar.bz2
 URL: http://www.dabeaz.com/ply/
 BuildRoot: %{_tmppath}/%{name}-buildroot
-Requires: python
-BuildRequires: python-devel
+%py_requires -d
 BuildArch: noarch
 
 %description
@@ -25,18 +24,17 @@ several reasons why you might want to take a look at PLY:
   checking.
 
 %prep
-rm -rf $RPM_BUILD_ROOT
-
-%setup -n ply-%{version}
+%setup -qn ply-%{version}
 
 %install
-python setup.py install --root=$RPM_BUILD_ROOT --record=INSTALLED_FILES
+rm -fr $RPM_BUILD_ROOT
+python setup.py install --root=$RPM_BUILD_ROOT
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%files -f INSTALLED_FILES
+%files
 %defattr(-,root,root,0755)
 %doc CHANGES COPYING README TODO doc example test
-
-
+%python_sitelib/*.egg-info
+%python_sitelib/ply
