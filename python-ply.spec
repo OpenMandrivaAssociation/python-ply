@@ -1,12 +1,11 @@
 Name:		python-ply
 Version:	3.4
-Release:	%mkrel 1
+Release:	2
 Group:		Development/Python
 License:	BSD-like
 Summary:	Python Lex-Yacc
 Source:		http://www.dabeaz.com/ply/ply-%{version}.tar.gz
 URL:		http://www.dabeaz.com/ply/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 BuildArch:	noarch
 BuildRequires:	python-devel
 
@@ -45,11 +44,7 @@ Python 3.0 and gives PLY's internals a much needed overhaul.
 %install
 %__python setup.py install --root=%{buildroot}
 
-%clean
-%__rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc CHANGES README TODO doc example test
 %py_puresitedir/ply
 %py_puresitedir/*.egg-info
