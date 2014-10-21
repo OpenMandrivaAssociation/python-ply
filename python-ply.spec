@@ -1,5 +1,3 @@
-%bcond_without python2
-
 Name:		python-ply
 Version:	3.4
 Release:	2
@@ -10,6 +8,7 @@ Source0:	http://www.dabeaz.com/ply/ply-%{version}.tar.gz
 URL:		http://www.dabeaz.com/ply/
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python3)
+BuildRequires:	pkgconfig(python2)
 
 %description
 PLY is an implementation of lex and yacc parsing tools for Python.
@@ -37,7 +36,6 @@ common usability problems. Since then, a variety of incremental
 improvements have been made to the system. PLY-3.0 adds support for
 Python 3.0 and gives PLY's internals a much needed overhaul.
 
-%if %{with python2}
 %package -n	python2-ply
 Summary:	Python 2.x version of the PLY lex/yacc implementation
 Group:		Development/Python
@@ -47,43 +45,33 @@ BuildRequires:	pkgconfig(python2)
 Python 2.x version of ply.
 
 PLY is an implementation of lex and yacc parsing tools for Python.
-%endif
 
 %prep
 %setup -q -n ply-%{version}
 mkdir python3
 mv `ls |grep -v python3` python3
-%if %{with python2}
 cp -a python3 python2
-%endif
 
 %build
 cd python3
 python setup.py build
 
-%if %{with python2}
 cd ../python2
-python2 setup.py build
-%endif
+%{__python2} setup.py build
 
 %install
 cd python3
-python setup.py install --root=%{buildroot}
+%{__python} setup.py install --root=%{buildroot}
 
-%if %{with python2}
 cd ../python2
-python2 setup.py install --root=%{buildroot}
-%endif
+%{__python2} setup.py install --root=%{buildroot}
 
 %files
-%defattr(-,root,root)
 %doc python3/CHANGES python3/README python3/TODO python3/doc python3/example python3/test
-%py3_puresitedir/ply
-%py3_puresitedir/*.egg-info
+%py_puresitedir/ply
+%py_puresitedir/*.egg-info
 
-%if %{with python2}
 %files -n python2-ply
 %doc python2/CHANGES python2/README python2/TODO python2/doc python2/example python2/test
 %py2_puresitedir/ply
 %py2_puresitedir/*.egg-info
-%endif
