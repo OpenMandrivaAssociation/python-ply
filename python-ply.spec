@@ -47,7 +47,6 @@ Python 3.0 and gives PLY's internals a much needed overhaul.
 %package -n	python2-%{module}
 Summary:	Python 2.x version of the PLY lex/yacc implementation
 Group:		Development/Python
-BuildRequires:	pkgconfig(python2)
 
 %description -n	python2-%{module}
 PLY is an implementation of lex and yacc parsing tools for Python.
@@ -118,7 +117,7 @@ pushd python3
 %{__python} setup.py install --root=%{buildroot} --record=FILELIST
 
 # remove *.pyc files from FILELIST
-%__sed -i '/\\*.pyc$/d' FILELIST
+sed -i '/\\*.pyc$/d' FILELIST
 popd
 
 # install python2 module
@@ -126,6 +125,6 @@ pushd python2
 %{__python2} setup.py install --root=%{buildroot} --record=FILELIST
 
 # remove *.pyc files from FILELIST
-%__sed -i '/\\*.pyc$/d' FILELIST
+sed -i '/\\*.pyc$/d' FILELIST
 popd
 
