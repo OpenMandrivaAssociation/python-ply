@@ -1,14 +1,14 @@
-Name:		python-ply
-Version:	3.4
-Release:	%mkrel 1
-Group:		Development/Python
-License:	BSD-like
+%define	module ply
+
 Summary:	Python Lex-Yacc
-Source:		http://www.dabeaz.com/ply/ply-%{version}.tar.gz
-URL:		http://www.dabeaz.com/ply/
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+Name:		python-ply
+Version:	3.9
+Release:	1
+License:	BSD
+Group:		Development/Python
+URL:		http://www.dabeaz.com/%{module}/
+Source0:	http://www.dabeaz.com/%{module}/%{module}-%{version}.tar.gz
 BuildArch:	noarch
-BuildRequires:	python-devel
 
 %description
 PLY is an implementation of lex and yacc parsing tools for Python.
@@ -36,24 +36,30 @@ common usability problems. Since then, a variety of incremental
 improvements have been made to the system. PLY-3.0 adds support for
 Python 3.0 and gives PLY's internals a much needed overhaul.
 
+%files -f 	FILELIST
+%doc CHANGES README.md TODO doc example test
+
+#----------------------------------------------------------------------------
+
 %prep
-%setup -q -n ply-%{version}
+%setup -q -n %{module}-%{version}
+# fix file-not-utf8 warning
+iconv -f iso8859-1 -t utf8 CHANGES > CHANGES.tmp
+touch -r CHANGES CHANGES.tmp
+mv -f CHANGES.tmp CHANGES
+
+# fix wrong-script-interpreter
+sed -i "s|#!/usr/local/bin/python|#!%{__python}|"  example/yply/yply.py
+sed -i "s|#!/usr/local/bin/python|#!%{__python}|"  doc/makedoc.py
 
 %build
-%__python setup.py build
+%{__python} setup.py build
 
 %install
-%__python setup.py install --root=%{buildroot}
+%{__python} setup.py install --root=%{buildroot} --record=FILELIST
 
-%clean
-%__rm -rf %{buildroot}
-
-%files
-%defattr(-,root,root)
-%doc CHANGES README TODO doc example test
-%py_puresitedir/ply
-%py_puresitedir/*.egg-info
-
+# remove *.pyc files from FILELIST
+%__sed -i '/\\*.pyc$/d' FILELIST
 
 %changelog
 * Wed Apr 20 2011 Paulo Andrade <pcpa@mandriva.com.br> 3.4-1mdv2011.0
