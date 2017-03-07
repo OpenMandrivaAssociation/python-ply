@@ -1,6 +1,6 @@
 Name:		python-ply
-Version:	3.4
-Release:	3
+Version:	3.10
+Release:	1
 Group:		Development/Python
 License:	BSD-like
 Summary:	Python Lex-Yacc
@@ -67,11 +67,11 @@ cd ../python2
 %{__python2} setup.py install --root=%{buildroot}
 
 %files
-%doc python3/CHANGES python3/README python3/TODO python3/doc python3/example python3/test
+%doc python3/CHANGES python3/TODO python3/doc python3/example python3/test
 %py_puresitedir/ply
 %py_puresitedir/*.egg-info
 
 %files -n python2-ply
-%doc python2/CHANGES python2/README python2/TODO python2/doc python2/example python2/test
+%doc python2/CHANGES python2/TODO python2/doc python2/example python2/test
 %py2_puresitedir/ply
 %py2_puresitedir/*.egg-info
