@@ -1,5 +1,5 @@
 Name:		python-ply
-Version:	3.10
+Version:	3.11
 Release:	1
 Group:		Development/Python
 License:	BSD-like
@@ -48,9 +48,14 @@ PLY is an implementation of lex and yacc parsing tools for Python.
 
 %prep
 %setup -q -n ply-%{version}
+
 mkdir python3
 mv `ls |grep -v python3` python3
 cp -a python3 python2
+
+# Use the right python...
+sed -i -e 's,/usr/local/bin/python,%{_bindir}/python,g' python3/doc/makedoc.py python3/example/yply/yply.py
+sed -i -e 's,/usr/local/bin/python,%{_bindir}/python2,g' python2/doc/makedoc.py python2/example/yply/yply.py
 
 %build
 cd python3
@@ -60,11 +65,11 @@ cd ../python2
 %{__python2} setup.py build
 
 %install
-cd python3
-%{__python} setup.py install --root=%{buildroot}
-
-cd ../python2
+cd python2
 %{__python2} setup.py install --root=%{buildroot}
+
+cd ../python3
+%{__python} setup.py install --root=%{buildroot}
 
 %files
 %doc python3/CHANGES python3/TODO python3/doc python3/example python3/test
