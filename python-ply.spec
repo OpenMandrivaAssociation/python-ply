@@ -5,7 +5,7 @@ Group:		Development/Python
 License:	BSD-like
 Summary:	Python Lex-Yacc
 Source0:	http://www.dabeaz.com/ply/ply-%{version}.tar.gz
-URL:		http://www.dabeaz.com/ply/
+URL:		https://www.dabeaz.com/ply/
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(python2)
