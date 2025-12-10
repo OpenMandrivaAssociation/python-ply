@@ -9,6 +9,7 @@ URL:		https://www.dabeaz.com/ply/
 BuildArch:	noarch
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	pkgconfig(python2)
+BuildRequires: python-setuptools
 
 %description
 PLY is an implementation of lex and yacc parsing tools for Python.
