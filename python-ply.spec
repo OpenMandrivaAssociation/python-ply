@@ -1,6 +1,6 @@
 Name:		python-ply
 Version:	3.11
-Release:	5
+Release:	6
 Group:		Development/Python
 License:	BSD-like
 Summary:	Python Lex-Yacc
